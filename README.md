@@ -183,10 +183,8 @@ Contributions, issues, and feature requests are welcome!
 
 ## 📧 Contact
 
-- Email: johndoe@example.com
-- LinkedIn: [John Doe](https://linkedin.com/in/johndoe)
-- GitHub: [johndoe](https://github.com/johndoe)
-
+- Email: erenatasoy@gmail.com
+- LinkedIn: [Eren Atasoy](www.linkedin.com/in/eren-atasoy-91b704215)
 ---
 
 **Note**: Replace all placeholder content in `src/data/portfolio.js` with your actual information before deploying.
