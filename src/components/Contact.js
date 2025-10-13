@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Check, AlertCircle } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaMedium } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolio';
 
 const Contact = () => {
@@ -10,14 +10,12 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [formStatus, setFormStatus] = useState(null); // 'sending', 'success', 'error'
+  const [formStatus, setFormStatus] = useState(null);
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -25,49 +23,31 @@ const Contact = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setFormStatus('sending');
-
-    // Simulate form submission (replace with actual API call)
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // For demo purposes, we'll just show success
       setFormStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      // Reset status after 5 seconds
       setTimeout(() => setFormStatus(null), 5000);
     } catch (error) {
       setFormStatus('error');
@@ -76,90 +56,86 @@ const Contact = () => {
   };
 
   const getSocialIcon = (iconName) => {
-    const icons = {
-      FaGithub: FaGithub,
-      FaLinkedin: FaLinkedin,
-      FaTwitter: FaTwitter,
-      FaEnvelope: Mail
-    };
-    const IconComponent = icons[iconName] || Mail;
-    return IconComponent;
+    const icons = { FaGithub, FaLinkedin, FaTwitter, FaMedium, FaEnvelope: Mail };
+    return icons[iconName] || Mail;
   };
 
   return (
-    <section id="contact" className="section-padding bg-gray-50 dark:bg-gray-800">
+    <section id="contact" className="section-padding bg-white dark:bg-black">
       <div className="container-max">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-16 animate-fade-in">
+          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase mb-4">
+            Let's Connect
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight">
             Get In Touch
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-blue-500 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            I'm always open to discussing new opportunities and interesting projects
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Let's Connect
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+                Let's Talk
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                Whether you have a project in mind, want to collaborate, or just want to say hello, 
-                I'd love to hear from you. Feel free to reach out through any of the channels below.
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                Whether you have a project in mind or just want to chat about technology, 
+                I'd love to hear from you.
               </p>
             </div>
 
-            {/* Contact Details */}
-            <div className="space-y-6">
-              <div className="flex items-center p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mr-4">
-                  <Mail className="text-primary-600 dark:text-primary-400" size={20} />
+            {/* Contact Cards */}
+            <div className="space-y-4">
+              <div className="card-apple flex items-center space-x-4">
+                <div className="w-12 h-12 bg-apple-blue/10 dark:bg-apple-blue/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <Mail className="text-apple-blue" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">Email</h4>
+                  <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-1">Email</h4>
                   <a 
                     href={`mailto:${personalInfo.email}`}
-                    className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    className="text-gray-600 dark:text-gray-400 hover:text-apple-blue transition-colors text-sm"
                   >
                     {personalInfo.email}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
-                  <Phone className="text-blue-600 dark:text-blue-400" size={20} />
+              <div className="card-apple flex items-center space-x-4">
+                <div className="w-12 h-12 bg-apple-purple/10 dark:bg-apple-purple/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <Phone className="text-apple-purple" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">Phone</h4>
+                  <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-1">Phone</h4>
                   <a 
                     href={`tel:${personalInfo.phone}`}
-                    className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                    className="text-gray-600 dark:text-gray-400 hover:text-apple-purple transition-colors text-sm"
                   >
                     {personalInfo.phone}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-4">
-                  <MapPin className="text-green-600 dark:text-green-400" size={20} />
+              <div className="card-apple flex items-center space-x-4">
+                <div className="w-12 h-12 bg-apple-green/10 dark:bg-apple-green/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <MapPin className="text-apple-green" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">Location</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{personalInfo.location}</p>
+                  <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-1">Location</h4>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">{personalInfo.location}</p>
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Follow Me</h4>
-              <div className="flex space-x-4">
+              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Follow Me</h4>
+              <div className="flex space-x-3">
                 {socialLinks.map((social, index) => {
                   const IconComponent = getSocialIcon(social.icon);
                   return (
@@ -168,10 +144,10 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 bg-white dark:bg-gray-900 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900 transition-all duration-200 shadow-md hover:shadow-lg"
+                      className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300"
                       aria-label={`Visit my ${social.name} profile`}
                     >
-                      <IconComponent size={20} />
+                      <IconComponent size={18} />
                     </a>
                   );
                 })}
@@ -180,33 +156,28 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="card-apple">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
               Send a Message
             </h3>
 
-            {/* Form Status Messages */}
+            {/* Status Messages */}
             {formStatus === 'success' && (
-              <div className="mb-6 p-4 bg-green-100 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded-lg flex items-center">
-                <Check className="text-green-600 dark:text-green-400 mr-3" size={20} />
-                <span className="text-green-800 dark:text-green-200">
-                  Thank you! Your message has been sent successfully.
-                </span>
+              <div className="mb-6 p-4 bg-apple-green/10 border border-apple-green/20 rounded-2xl flex items-center">
+                <Check className="text-apple-green mr-3" size={20} />
+                <span className="text-apple-green text-sm">Message sent successfully!</span>
               </div>
             )}
 
             {formStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg flex items-center">
-                <AlertCircle className="text-red-600 dark:text-red-400 mr-3" size={20} />
-                <span className="text-red-800 dark:text-red-200">
-                  Sorry, there was an error sending your message. Please try again.
-                </span>
+              <div className="mb-6 p-4 bg-apple-red/10 border border-apple-red/20 rounded-2xl flex items-center">
+                <AlertCircle className="text-apple-red mr-3" size={20} />
+                <span className="text-apple-red text-sm">Error sending message. Please try again.</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name and Email Row */}
-              <div className="grid md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid md:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Name *
@@ -217,14 +188,12 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${
-                      errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                    }`}
+                    className={`w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border ${
+                      errors.name ? 'border-apple-red' : 'border-gray-200 dark:border-gray-700'
+                    } text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue transition-all`}
                     placeholder="Your name"
                   />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
-                  )}
+                  {errors.name && <p className="mt-1 text-xs text-apple-red">{errors.name}</p>}
                 </div>
 
                 <div>
@@ -237,18 +206,15 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${
-                      errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                    }`}
-                    placeholder="your.email@example.com"
+                    className={`w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border ${
+                      errors.email ? 'border-apple-red' : 'border-gray-200 dark:border-gray-700'
+                    } text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue transition-all`}
+                    placeholder="your@email.com"
                   />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="mt-1 text-xs text-apple-red">{errors.email}</p>}
                 </div>
               </div>
 
-              {/* Subject */}
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Subject *
@@ -259,17 +225,14 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white ${
-                    errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  }`}
+                  className={`w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border ${
+                    errors.subject ? 'border-apple-red' : 'border-gray-200 dark:border-gray-700'
+                  } text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue transition-all`}
                   placeholder="What's this about?"
                 />
-                {errors.subject && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>
-                )}
+                {errors.subject && <p className="mt-1 text-xs text-apple-red">{errors.subject}</p>}
               </div>
 
-              {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Message *
@@ -280,21 +243,18 @@ const Contact = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-none dark:bg-gray-800 dark:border-gray-600 dark:text-white ${
-                    errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  }`}
-                  placeholder="Tell me about your project or just say hello..."
+                  className={`w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border ${
+                    errors.message ? 'border-apple-red' : 'border-gray-200 dark:border-gray-700'
+                  } text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-apple-blue transition-all resize-none`}
+                  placeholder="Tell me about your project..."
                 ></textarea>
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>
-                )}
+                {errors.message && <p className="mt-1 text-xs text-apple-red">{errors.message}</p>}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={formStatus === 'sending'}
-                className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center space-x-2"
+                className="w-full btn-apple disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {formStatus === 'sending' ? (
                   <>
@@ -303,7 +263,7 @@ const Contact = () => {
                   </>
                 ) : (
                   <>
-                    <Send size={20} />
+                    <Send size={18} />
                     <span>Send Message</span>
                   </>
                 )}

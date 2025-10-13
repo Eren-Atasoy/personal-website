@@ -160,13 +160,13 @@ export const socialLinks = [
   },
   {
     name: "LinkedIn",
-    url: "www.linkedin.com/in/eren-atasoy-91b704215",
+    url: "https://www.linkedin.com/in/eren-atasoy-91b704215",
     icon: "FaLinkedin"
   },
   {
-    name: "Twitter",
-    url: "https://twitter.com/",
-    icon: "FaTwitter"
+    name: "Medium",
+    url: "https://medium.com/@erenatasoy04",
+    icon: "FaMedium"
   },
   {
     name: "Email",

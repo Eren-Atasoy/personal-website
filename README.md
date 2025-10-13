@@ -6,10 +6,12 @@ A modern, responsive personal website built with React, TailwindCSS, and modern 
 
 - **Responsive Design**: Optimized for mobile, tablet, and desktop
 - **Dark Mode**: Toggle between light and dark themes
-- **Modern UI/UX**: Clean, professional design with smooth animations
+- **Modern UI/UX**: Clean, professional Apple-inspired design with smooth animations
+- **Dynamic Content**: Real-time data from GitHub repositories and Medium articles
 - **SEO Optimized**: Meta tags, Open Graph, and Schema.org markup
 - **Accessible**: ARIA labels and semantic HTML structure
-- **Performance Focused**: Optimized images and code splitting
+- **Performance Focused**: Optimized images, code splitting, and fallback data
+- **API Integration**: GitHub API for projects, Medium RSS for blog posts
 
 ## 🛠️ Tech Stack
 
@@ -51,13 +53,29 @@ A modern, responsive personal website built with React, TailwindCSS, and modern 
    npm install
    ```
 
-3. Start the development server:
+3. **IMPORTANT:** Create `.env` file for GitHub API access:
+
+   ```bash
+   # Copy the example file
+   cp env.example .env
+   ```
+
+   Then edit `.env` and add your GitHub Personal Access Token:
+   ```env
+   REACT_APP_GITHUB_TOKEN=ghp_your_token_here
+   ```
+
+   **⚠️ Why you need this:** Without a GitHub token, you'll hit API rate limits (60 requests/hour). With a token, you get 5000 requests/hour.
+
+   📖 **See [GITHUB_TOKEN_SETUP.md](GITHUB_TOKEN_SETUP.md) for detailed setup instructions**
+
+4. Start the development server:
 
    ```bash
    npm start
    ```
 
-4. Open [http://localhost:3000](http://localhost:3001) to view it in the browser.
+5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Build for Production
 

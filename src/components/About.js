@@ -2,168 +2,164 @@ import React from 'react';
 import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
 import { about, personalInfo } from '../data/portfolio';
 
-const SkillBar = ({ skill }) => (
-  <div className="mb-4">
-    <div className="flex justify-between items-center mb-2">
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-        {skill.name}
-      </span>
-      <span className="text-sm text-gray-500 dark:text-gray-400">
-        {skill.level}%
-      </span>
-    </div>
-    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-      <div
-        className="bg-gradient-to-r from-primary-500 to-blue-500 h-2 rounded-full transition-all duration-1000 ease-out"
-        style={{ width: `${skill.level}%` }}
-      ></div>
+const SkillPill = ({ skill }) => (
+  <div className="group">
+    <div className="card-apple p-4 hover:shadow-apple-lg transition-all duration-300">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-sm font-medium text-gray-900 dark:text-white">
+          {skill.name}
+        </span>
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">
+          {skill.level}%
+        </span>
+      </div>
+      <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+        <div
+          className="bg-gradient-to-r from-apple-blue to-apple-purple h-full rounded-full transition-all duration-1000 ease-out"
+          style={{ width: `${skill.level}%` }}
+        ></div>
+      </div>
     </div>
   </div>
 );
 
 const About = () => {
   return (
-    <section id="about" className="section-padding bg-white dark:bg-gray-900">
+    <section id="about" className="section-padding bg-gray-50 dark:bg-gray-900">
       <div className="container-max">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        {/* Section Header - Apple minimal style */}
+        <div className="text-center mb-20 animate-fade-in">
+          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase mb-4">
+            Get to know me
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight">
             About Me
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-blue-500 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Passionate about creating digital experiences that make a difference
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Bio and Personal Info */}
+        {/* Bio Section - Full width, centered */}
+        <div className="max-w-4xl mx-auto mb-20 animate-slide-up">
           <div className="space-y-6">
-            {/* Bio Paragraphs */}
-            <div className="space-y-4">
-              {about.description.map((paragraph, index) => (
-                <p 
-                  key={index}
-                  className="text-gray-600 dark:text-gray-300 leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            {about.description.map((paragraph, index) => (
+              <p 
+                key={index}
+                className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed text-center"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
 
-            {/* Personal Details */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 mt-8">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Personal Details
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <MapPin size={18} className="mr-3 text-primary-500" />
-                  <span>{personalInfo.location}</span>
+        {/* Personal Details - Apple card style */}
+        <div className="max-w-3xl mx-auto mb-20">
+          <div className="card-apple">
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="flex flex-col items-center text-center p-4">
+                <div className="w-12 h-12 bg-apple-blue/10 dark:bg-apple-blue/20 rounded-2xl flex items-center justify-center mb-4">
+                  <MapPin size={20} className="text-apple-blue" />
                 </div>
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <GraduationCap size={18} className="mr-3 text-primary-500" />
-                  <span>{about.education[0].degree}</span>
-                </div>
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <Briefcase size={18} className="mr-3 text-primary-500" />
-                  <span>Open to opportunities</span>
-                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Location</p>
+                <p className="text-base font-medium text-gray-900 dark:text-white">{personalInfo.location}</p>
               </div>
-            </div>
 
-            {/* Education */}
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                Education
-              </h3>
-              {about.education.map((edu, index) => (
-                <div key={index} className="border-l-4 border-primary-500 pl-4 py-2">
-                  <h4 className="font-medium text-gray-900 dark:text-white">
-                    {edu.degree}
-                  </h4>
-                  <p className="text-primary-600 dark:text-primary-400 font-medium">
-                    {edu.school}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                    {edu.year}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
-                    {edu.description}
-                  </p>
+              <div className="flex flex-col items-center text-center p-4">
+                <div className="w-12 h-12 bg-apple-purple/10 dark:bg-apple-purple/20 rounded-2xl flex items-center justify-center mb-4">
+                  <GraduationCap size={20} className="text-apple-purple" />
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Education</p>
+                <p className="text-base font-medium text-gray-900 dark:text-white">{about.education[0].school}</p>
+              </div>
 
-            {/* Experience */}
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                Experience
-              </h3>
-              <div className="space-y-6">
-                {about.experience.map((exp, index) => (
-                  <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
-                    <h4 className="font-medium text-gray-900 dark:text-white">
-                      {exp.title}
-                    </h4>
-                    <p className="text-blue-600 dark:text-blue-400 font-medium">
-                      {exp.company}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                      {exp.year}
-                    </p>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      {exp.description}
-                    </p>
-                  </div>
-                ))}
+              <div className="flex flex-col items-center text-center p-4">
+                <div className="w-12 h-12 bg-apple-green/10 dark:bg-apple-green/20 rounded-2xl flex items-center justify-center mb-4">
+                  <Briefcase size={20} className="text-apple-green" />
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Status</p>
+                <p className="text-base font-medium text-gray-900 dark:text-white">Open to opportunities</p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Right Column - Skills */}
-          <div className="space-y-8">
-            {/* Skills */}
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                Technical Skills
-              </h3>
-              <div className="space-y-4">
-                {about.skills.map((skill, index) => (
-                  <SkillBar key={index} skill={skill} />
-                ))}
-              </div>
-            </div>
+        {/* Skills Section - Apple grid style */}
+        <div className="mb-20">
+          <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-10 text-center">
+            Technical Skills
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {about.skills.map((skill, index) => (
+              <SkillPill key={index} skill={skill} />
+            ))}
+          </div>
+        </div>
 
-            {/* Skills Grid Alternative View */}
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                Technologies
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {about.skills.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-600 transition-colors duration-200 hover:shadow-md"
-                  >
-                    <div className="text-2xl mb-2">
-                      {/* Placeholder for skill icon */}
-                      <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-blue-500 rounded-lg mx-auto mb-2"></div>
+        {/* Experience & Education - Apple timeline style */}
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Education */}
+          <div>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
+              Education
+            </h3>
+            <div className="space-y-6">
+              {about.education.map((edu, index) => (
+                <div key={index} className="card-apple">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-apple-blue/10 dark:bg-apple-blue/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <GraduationCap size={18} className="text-apple-blue" />
                     </div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {skill.name}
-                    </p>
-                    <div className="mt-2">
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
-                        <div
-                          className="bg-gradient-to-r from-primary-500 to-blue-500 h-1 rounded-full"
-                          style={{ width: `${skill.level}%` }}
-                        ></div>
-                      </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                        {edu.degree}
+                      </h4>
+                      <p className="text-sm text-apple-blue font-medium mb-1">
+                        {edu.school}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                        {edu.year}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {edu.description}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Experience */}
+          <div>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
+              Experience
+            </h3>
+            <div className="space-y-6">
+              {about.experience.map((exp, index) => (
+                <div key={index} className="card-apple">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-apple-purple/10 dark:bg-apple-purple/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Briefcase size={18} className="text-apple-purple" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                        {exp.title}
+                      </h4>
+                      <p className="text-sm text-apple-purple font-medium mb-1">
+                        {exp.company}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                        {exp.year}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
