@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, ArrowRight, Tag, Loader, ExternalLink } from 'lucide-react';
+import { Calendar, Clock, Tag, Loader, ExternalLink } from 'lucide-react';
 import { fetchMediumArticles } from '../services/mediumService';
 
 const BlogCard = ({ post }) => (
