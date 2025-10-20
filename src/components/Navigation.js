@@ -42,7 +42,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
               aria-label="Go to home section"
             >
               <img 
-                src={"/logo192.png"} 
+                src={"/logo512.png"} 
                 alt="Logo" 
                 className="w-8 h-8 rounded-full transition-transform duration-300 group-hover:scale-110" 
               />
