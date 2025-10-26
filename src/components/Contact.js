@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Check, AlertCircle } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaTwitter, FaMedium } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolio';
+import { API, VALIDATION, ANIMATION } from '../utils/constants';
+import { logger } from '../utils/logger';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -26,14 +28,14 @@ const Contact = () => {
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!VALIDATION.EMAIL_REGEX.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+    } else if (formData.message.trim().length < VALIDATION.MESSAGE_MIN_LENGTH) {
+      newErrors.message = `Message must be at least ${VALIDATION.MESSAGE_MIN_LENGTH} characters`;
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -44,14 +46,48 @@ const Contact = () => {
     if (!validateForm()) return;
 
     setFormStatus('sending');
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setFormStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setFormStatus(null), 5000);
+      const web3FormsKey = process.env.REACT_APP_WEB3FORMS_KEY;
+
+      if (!web3FormsKey) {
+        logger.warn('Web3Forms API key not configured. Falling back to mailto link.');
+        window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+        setFormStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setFormStatus(null), ANIMATION.STATUS_MESSAGE_TIMEOUT);
+        return;
+      }
+
+      const response = await fetch(API.WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: web3FormsKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          from_name: 'Portfolio Contact Form'
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setFormStatus(null), ANIMATION.STATUS_MESSAGE_TIMEOUT);
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
+      logger.error('Error submitting form:', error);
       setFormStatus('error');
-      setTimeout(() => setFormStatus(null), 5000);
+      setTimeout(() => setFormStatus(null), ANIMATION.STATUS_MESSAGE_TIMEOUT);
     }
   };
 

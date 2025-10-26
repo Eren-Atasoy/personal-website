@@ -2,31 +2,50 @@
 export const personalInfo = {
   name: "Eren Atasoy",
   title: "Software Engineering Student",
-  bio: "I'm a passionate software engineering student with a love for creating innovative solutions and learning new technologies. Currently pursuing my degree while building projects that make a difference.",
+  bio: "I'm a passionate software engineering student specializing in AI, machine learning, and full-stack development. Experienced in C#, Python, and JavaScript, building everything from AI-powered applications to mobile solutions. Currently pursuing my degree while creating projects that make a difference.",
   email: "erenatasoy04@gmail.com",
   phone: "+90 000 000 00 00",
   location: "İstanbul, Türkiye",
-  resumeUrl: "/resume.pdf",
-  profileImage: "https://media.licdn.com/dms/image/v2/D4D03AQHBMJCtR2Tugw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1684249645841?e=1757548800&v=beta&t=jZ8CvNBr0Rf-RqneC-b8Sk-f9XQUc5C1ExCjntldFDA"
+  profileImage: "/profile-image.jpeg"
 };
 
 export const about = {
   description: [
-    "I'm a dedicated software engineering student with a passion for building innovative digital solutions. My journey in technology began with curiosity about how things work and has evolved into a commitment to creating meaningful applications that solve real-world problems.",
-    "When I'm not coding, you can find me exploring new frameworks, contributing to open-source projects, or sharing my knowledge with fellow developers. I believe in continuous learning and staying up-to-date with the latest industry trends.",
-    "I'm particularly interested in full-stack development, machine learning, and user experience design. My goal is to bridge the gap between complex technical solutions and intuitive user interfaces."
+    "I'm a dedicated software engineering student with a passion for artificial intelligence and full-stack development. My journey in technology began with curiosity about how things work and has evolved into building AI-powered applications, mobile solutions, and web services that solve real-world problems.",
+    "With hands-on experience in C#, Python, JavaScript, and various frameworks, I've developed projects ranging from AI-powered movie recommendation systems to mobile language learning applications. My work spans across ASP.NET Web APIs, machine learning models, and cross-platform mobile development with Flutter.",
+    "I'm particularly passionate about machine learning, deep learning, and creating intelligent systems. My goal is to leverage AI technologies to build innovative solutions while maintaining clean code architecture and excellent user experiences. Currently exploring advanced topics in neural networks and computer vision while contributing to open-source projects."
   ],
   skills: [
-    { name: "JavaScript", level: 90, icon: "SiJavascript" },
-    { name: "React", level: 85, icon: "SiReact" },
-    { name: "Node.js", level: 80, icon: "SiNodedotjs" },
+    // Programming Languages
+    { name: "C#", level: 85, icon: "SiCsharp" },
     { name: "Python", level: 85, icon: "SiPython" },
-    { name: "TypeScript", level: 75, icon: "SiTypescript" },
-    { name: "PostgreSQL", level: 70, icon: "SiPostgresql" },
-    { name: "MongoDB", level: 75, icon: "SiMongodb" },
+    { name: "JavaScript", level: 90, icon: "SiJavascript" },
+    { name: "C", level: 80, icon: "SiC" },
+    { name: "C++", level: 75, icon: "SiCplusplus" },
+    { name: "Java", level: 75, icon: "SiJava" },
+    { name: "Dart", level: 70, icon: "SiDart" },
+    
+    // Web Technologies
+    { name: "HTML5", level: 90, icon: "SiHtml5" },
+    { name: "CSS3", level: 85, icon: "SiCss3" },
+    { name: "ASP.NET", level: 80, icon: "SiDotnet" },
+    { name: "Node.js", level: 75, icon: "SiNodedotjs" },
+    
+    // AI & Machine Learning
+    { name: "Machine Learning", level: 80, icon: "SiScikitlearn" },
+    { name: "Deep Learning", level: 75, icon: "SiPytorch" },
+    
+    // Databases
+    { name: "SQL", level: 80, icon: "SiMysql" },
+    { name: "PostgreSQL", level: 75, icon: "SiPostgresql" },
+    
+    // Tools & Others
     { name: "Git", level: 85, icon: "SiGit" },
+    { name: "Bash", level: 75, icon: "SiGnubash" },
     { name: "Docker", level: 65, icon: "SiDocker" },
-    { name: "AWS", level: 60, icon: "SiAmazonaws" }
+    { name: "Postman", level: 80, icon: "SiPostman" },
+    { name: "Agile", level: 75, icon: "SiJira" },
+    { name: "Flutter", level: 70, icon: "SiFlutter" }
   ],
   education: [
     {
@@ -38,10 +57,16 @@ export const about = {
   ],
   experience: [
     {
-      title: "Freelance Web Developer",
-      company: "Self-employed",
+      title: "AI & Full-Stack Developer",
+      company: "Personal Projects",
       year: "2023 - Present",
-      description: "Built custom websites for small businesses, focusing on performance and user experience."
+      description: "Developed AI-powered movie recommendation system using machine learning models and ASP.NET Web API. Created mobile applications with Flutter/Dart including language learning app (Prolingo). Built multiple C# projects focusing on OOP principles and layered architecture."
+    },
+    {
+      title: "Software Engineering Student",
+      company: "Beykent University",
+      year: "2022 - Present",
+      description: "Focusing on mobile development, full-stack development, artificial intelligence, and software architecture. Working on various projects including C/C++ systems programming and database management."
     }
   ]
 };
@@ -57,56 +82,6 @@ export const projects = [
     liveUrl: "https://ecommerce-demo.vercel.app",
     featured: true
   },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates and team collaboration features.",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    technologies: ["React", "Firebase", "Material-UI", "Socket.io"],
-    githubUrl: "https://github.com/johndoe/task-manager",
-    liveUrl: "https://taskman-demo.vercel.app",
-    featured: true
-  },
-  {
-    id: 3,
-    title: "Weather Dashboard",
-    description: "A responsive weather application with location-based forecasts and interactive charts.",
-    image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    technologies: ["JavaScript", "Chart.js", "OpenWeather API", "CSS3"],
-    githubUrl: "https://github.com/johndoe/weather-dashboard",
-    liveUrl: "https://weather-app-demo.vercel.app",
-    featured: false
-  },
-  {
-    id: 4,
-    title: "Portfolio Website",
-    description: "A modern, responsive portfolio website built with React and TailwindCSS.",
-    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    technologies: ["React", "TailwindCSS", "Framer Motion", "Vercel"],
-    githubUrl: "https://github.com/johndoe/portfolio",
-    liveUrl: "https://johndoe-portfolio.vercel.app",
-    featured: false
-  },
-  {
-    id: 5,
-    title: "Blog Platform",
-    description: "A content management system for bloggers with markdown support and SEO optimization.",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    technologies: ["Next.js", "Prisma", "PostgreSQL", "Tailwind"],
-    githubUrl: "https://github.com/johndoe/blog-platform",
-    liveUrl: "https://blog-demo.vercel.app",
-    featured: true
-  },
-  {
-    id: 6,
-    title: "AI Chat Assistant",
-    description: "An intelligent chatbot powered by OpenAI API with conversation memory and context awareness.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    technologies: ["Python", "FastAPI", "OpenAI API", "React", "WebSocket"],
-    githubUrl: "https://github.com/johndoe/ai-chat",
-    liveUrl: "https://ai-chat-demo.vercel.app",
-    featured: true
-  }
 ];
 
 export const blogPosts = [
@@ -120,36 +95,7 @@ export const blogPosts = [
     slug: "building-scalable-react-applications",
     featured: true
   },
-  {
-    id: 2,
-    title: "Introduction to TypeScript for JavaScript Developers",
-    excerpt: "A comprehensive guide to getting started with TypeScript and its benefits for large-scale applications.",
-    date: "2024-01-08",
-    readTime: "12 min read",
-    tags: ["TypeScript", "JavaScript", "Programming"],
-    slug: "intro-to-typescript",
-    featured: false
-  },
-  {
-    id: 3,
-    title: "Modern CSS Techniques for Better User Interfaces",
-    excerpt: "Explore modern CSS features like Grid, Flexbox, and custom properties to create stunning UIs.",
-    date: "2024-01-01",
-    readTime: "6 min read",
-    tags: ["CSS", "UI/UX", "Frontend"],
-    slug: "modern-css-techniques",
-    featured: false
-  },
-  {
-    id: 4,
-    title: "Deploying Full-Stack Applications with Docker",
-    excerpt: "Step-by-step guide to containerizing and deploying your applications using Docker and Docker Compose.",
-    date: "2023-12-25",
-    readTime: "15 min read",
-    tags: ["Docker", "DevOps", "Deployment"],
-    slug: "deploying-with-docker",
-    featured: true
-  }
+
 ];
 
 export const socialLinks = [

@@ -1,84 +1,93 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, Tag, Loader, ExternalLink } from 'lucide-react';
 import { fetchMediumArticles } from '../services/mediumService';
+import { LIMITS } from '../utils/constants';
+import { logger } from '../utils/logger';
+import BlogPlaceholder from './BlogPlaceholder';
 
-const BlogCard = ({ post }) => (
-  <a
-    href={post.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="card-apple group cursor-pointer hover:shadow-apple-lg transition-all duration-500 block"
-  >
-    {/* Thumbnail if available */}
-    {post.thumbnail && (
-      <div className="relative overflow-hidden rounded-2xl mb-6 aspect-video">
-        <img
-          src={post.thumbnail}
-          alt={post.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+const BlogCard = ({ post }) => {
+  const [imageError, setImageError] = useState(false);
+  const hasValidThumbnail = post.thumbnail && 
+                            post.thumbnail.trim() !== '' && 
+                            !post.thumbnail.includes('medium.com/_/stat') && 
+                            !imageError;
+
+  return (
+    <a
+      href={post.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="card-apple group cursor-pointer hover:shadow-apple-lg transition-all duration-500 block"
+    >
+      <div className="relative overflow-hidden rounded-2xl mb-6 aspect-video bg-gray-100 dark:bg-gray-800">
+        {hasValidThumbnail ? (
+          <>
+            <img
+              src={post.thumbnail}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy"
+              onError={() => setImageError(true)}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </>
+        ) : (
+          <BlogPlaceholder postId={post.id} postTitle={post.title} />
+        )}
       </div>
-    )}
 
-    {/* Featured indicator */}
-    {post.featured && (
-      <div className="mb-4">
-        <span className="inline-flex items-center bg-apple-blue/10 dark:bg-apple-blue/20 text-apple-blue px-3 py-1 rounded-full text-xs font-medium">
-          Featured Post
+      {post.featured && (
+        <div className="mb-4">
+          <span className="inline-flex items-center bg-apple-blue/10 dark:bg-apple-blue/20 text-apple-blue px-3 py-1 rounded-full text-xs font-medium">
+            Featured Post
+          </span>
+        </div>
+      )}
+
+      {post.tags && post.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {post.tags.slice(0, LIMITS.FEATURED_BLOG_TAGS).map((tag, index) => (
+            <span
+              key={index}
+              className="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium"
+            >
+              <Tag size={10} className="mr-1" />
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-apple-blue transition-colors duration-300 line-clamp-2">
+        {post.title}
+      </h3>
+
+      <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3 text-sm">
+        {post.excerpt}
+      </p>
+
+      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-4 space-x-4">
+        <span className="flex items-center">
+          <Calendar size={12} className="mr-1.5" />
+          {new Date(post.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          })}
+        </span>
+        <span className="flex items-center">
+          <Clock size={12} className="mr-1.5" />
+          {post.readTime}
         </span>
       </div>
-    )}
 
-    {/* Tags */}
-    {post.tags && post.tags.length > 0 && (
-      <div className="flex flex-wrap gap-2 mb-4">
-        {post.tags.slice(0, 3).map((tag, index) => (
-          <span
-            key={index}
-            className="inline-flex items-center bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium"
-          >
-            <Tag size={10} className="mr-1" />
-            {tag}
-          </span>
-        ))}
+      <div className="inline-flex items-center text-apple-blue font-medium text-sm group-hover:gap-2 transition-all duration-300">
+        <span>Read on Medium</span>
+        <ExternalLink size={14} className="ml-1 group-hover:translate-x-1 transition-transform duration-300" />
       </div>
-    )}
-
-    {/* Title */}
-    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-apple-blue transition-colors duration-300 line-clamp-2">
-      {post.title}
-    </h3>
-
-    {/* Excerpt */}
-    <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3 text-sm">
-      {post.excerpt}
-    </p>
-
-    {/* Meta Information */}
-    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-4 space-x-4">
-      <span className="flex items-center">
-        <Calendar size={12} className="mr-1.5" />
-        {new Date(post.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })}
-      </span>
-      <span className="flex items-center">
-        <Clock size={12} className="mr-1.5" />
-        {post.readTime}
-      </span>
-    </div>
-
-    {/* Read More */}
-    <div className="inline-flex items-center text-apple-blue font-medium text-sm group-hover:gap-2 transition-all duration-300">
-      <span>Read on Medium</span>
-      <ExternalLink size={14} className="ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-    </div>
-  </a>
-);
+    </a>
+  );
+};
 
 const Blog = () => {
   const [articles, setArticles] = useState([]);
@@ -97,7 +106,7 @@ const Blog = () => {
       setArticles(posts);
     } catch (err) {
       setError('Failed to load articles. Please try again later.');
-      console.error('Error loading articles:', err);
+      logger.error('Error loading articles:', err);
     } finally {
       setLoading(false);
     }
@@ -109,7 +118,6 @@ const Blog = () => {
   return (
     <section id="blog" className="section-padding bg-gray-50 dark:bg-gray-900">
       <div className="container-max">
-        {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
           <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase mb-4">
             Insights & Articles
@@ -122,7 +130,6 @@ const Blog = () => {
           </p>
         </div>
 
-        {/* Loading State */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader size={40} className="text-apple-blue animate-spin mb-4" />
@@ -130,23 +137,17 @@ const Blog = () => {
           </div>
         )}
 
-        {/* Error State */}
         {error && (
           <div className="text-center py-20">
             <p className="text-red-500 dark:text-red-400 mb-4">{error}</p>
-            <button
-              onClick={loadArticles}
-              className="btn-apple"
-            >
+            <button onClick={loadArticles} className="btn-apple">
               Try Again
             </button>
           </div>
         )}
 
-        {/* Articles Content */}
         {!loading && !error && (
           <>
-            {/* Featured Posts */}
             {featuredPosts.length > 0 && (
               <div className="mb-16">
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
@@ -160,7 +161,6 @@ const Blog = () => {
               </div>
             )}
 
-            {/* Recent Posts */}
             {recentPosts.length > 0 && (
               <div>
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
@@ -174,7 +174,6 @@ const Blog = () => {
               </div>
             )}
 
-            {/* No Articles Message */}
             {articles.length === 0 && (
               <div className="text-center py-20">
                 <p className="text-gray-500 dark:text-gray-400 text-lg">
@@ -185,7 +184,6 @@ const Blog = () => {
           </>
         )}
 
-        {/* Medium CTA - Apple style */}
         <div className="mt-20 max-w-3xl mx-auto">
           <div className="card-apple text-center bg-gradient-to-br from-apple-blue/5 to-apple-purple/5 dark:from-apple-blue/10 dark:to-apple-purple/10">
             <div className="w-16 h-16 bg-gray-900 dark:bg-white rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -211,24 +209,9 @@ const Blog = () => {
           </div>
         </div>
       </div>
-
-      {/* Line clamp styles */}
-      <style jsx>{`
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
     </section>
   );
 };
 
 export default Blog;
+

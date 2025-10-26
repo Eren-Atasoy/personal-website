@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Star, Loader, Clock } from 'lucide-react';
 import { fetchGitHubRepos, getRateLimitStatus } from '../services/githubService';
+import { logger } from '../utils/logger';
 
 const ProjectCard = ({ project }) => (
   <a 
@@ -120,7 +121,7 @@ const Projects = () => {
       }
     } catch (err) {
       setError('Failed to load projects. Please try again later.');
-      console.error('Error loading projects:', err);
+      logger.error('Error loading projects:', err);
     } finally {
       setLoading(false);
     }

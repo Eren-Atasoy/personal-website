@@ -1,7 +1,6 @@
 import React from 'react';
 import { Heart, ArrowUp } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter, FaMedium } from 'react-icons/fa';
-import { personalInfo, socialLinks, navigation } from '../data/portfolio';
+import { personalInfo, navigation } from '../data/portfolio';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -13,11 +12,6 @@ const Footer = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const getSocialIcon = (iconName) => {
-    const icons = { FaGithub, FaLinkedin, FaTwitter, FaMedium };
-    return icons[iconName] || FaGithub;
   };
 
   const currentYear = new Date().getFullYear();
@@ -36,24 +30,6 @@ const Footer = () => {
               {personalInfo.bio}
             </p>
             
-            {/* Social Links - Apple style */}
-            <div className="flex space-x-3">
-              {socialLinks.map((social, index) => {
-                const IconComponent = getSocialIcon(social.icon);
-                return (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-gray-200 dark:bg-gray-800 hover:bg-gray-900 dark:hover:bg-white rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-white dark:hover:text-black transition-all duration-300 transform hover:scale-110"
-                    aria-label={`Visit my ${social.name} profile`}
-                  >
-                    <IconComponent size={16} />
-                  </a>
-                );
-              })}
-            </div>
           </div>
 
           {/* Quick Links */}

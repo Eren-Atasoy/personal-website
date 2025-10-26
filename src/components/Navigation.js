@@ -26,7 +26,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <nav 
-      className={`relative w-full z-50 transition-all duration-500 ease-out ${
+      className={`relative w-full z-50 transition-all duration-300 ease-out ${
         scrolled 
           ? 'glass shadow-apple' 
           : 'bg-transparent'
