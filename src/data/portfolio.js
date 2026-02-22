@@ -24,21 +24,21 @@ export const about = {
     { name: "C++", level: 75, icon: "SiCplusplus" },
     { name: "Java", level: 75, icon: "SiJava" },
     { name: "Dart", level: 70, icon: "SiDart" },
-    
+
     // Web Technologies
     { name: "HTML5", level: 90, icon: "SiHtml5" },
     { name: "CSS3", level: 85, icon: "SiCss3" },
     { name: "ASP.NET", level: 80, icon: "SiDotnet" },
     { name: "Node.js", level: 75, icon: "SiNodedotjs" },
-    
+
     // AI & Machine Learning
     { name: "Machine Learning", level: 80, icon: "SiScikitlearn" },
     { name: "Deep Learning", level: 75, icon: "SiPytorch" },
-    
+
     // Databases
     { name: "SQL", level: 80, icon: "SiMysql" },
     { name: "PostgreSQL", level: 75, icon: "SiPostgresql" },
-    
+
     // Tools & Others
     { name: "Git", level: 85, icon: "SiGit" },
     { name: "Bash", level: 75, icon: "SiGnubash" },
@@ -126,5 +126,6 @@ export const navigation = [
   { name: "About", href: "#about" },
   { name: "Projects", href: "#projects" },
   { name: "Blog", href: "#blog" },
+  { name: "Article", href: "/article" },
   { name: "Contact", href: "#contact" }
 ];

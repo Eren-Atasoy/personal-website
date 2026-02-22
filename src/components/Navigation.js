@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { navigation } from '../data/portfolio';
 
 const Navigation = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,9 +21,28 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
 
   const handleNavClick = (href) => {
     setIsOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    
+    // Eğer route ise (href / ile başlıyorsa)
+    if (href.startsWith('/')) {
+      navigate(href);
+      return;
+    }
+    
+    // Eğer ana sayfadaysak smooth scroll yap
+    if (location.pathname === '/') {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Başka bir sayfadaysak önce ana sayfaya git, sonra scroll yap
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
@@ -37,9 +59,9 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
           {/* Logo - Apple minimal style */}
           <div className="flex-shrink-0">
             <button
-              onClick={() => handleNavClick('#home')}
+              onClick={() => navigate('/')}
               className="flex items-center space-x-2 group"
-              aria-label="Go to home section"
+              aria-label="Go to home"
             >
               <img 
                 src={"/logo512.png"} 
