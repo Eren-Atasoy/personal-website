@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Users, Calendar, Tag, ExternalLink, Download, BookOpen } from 'lucide-react';
+import { FileText, Users, Tag, ExternalLink, Download, BookOpen } from 'lucide-react';
 
 const Article = () => {
   const handleOpenPDF = (e) => {
